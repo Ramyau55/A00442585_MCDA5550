@@ -3,6 +3,7 @@ package com.example.hotelReservation.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,10 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.hotelReservation.model.HotelDetails;
 import com.example.hotelReservation.model.ReservationDetails;
+import com.example.hotelReservation.repository.HotelDetailsRepository;
 
 @RestController
 public class HotelController {
 
+	@Autowired
+	private HotelDetailsRepository hotelDetailsRepository;
+	
 	@RequestMapping("/ping")
 	public String ping() {
 		return "Service is up and running";
@@ -21,18 +26,8 @@ public class HotelController {
 	
 	@RequestMapping("/getListOfHotels")
 	public List<HotelDetails> hotelList() {
-		List<HotelDetails> hotelList = new ArrayList<HotelDetails>();
-		HotelDetails hotel1 = new HotelDetails();
-		hotel1.setHotel_name("A2B");
-		hotel1.setPrice(1000);
-		hotel1.setAvailability(true);
-		HotelDetails hotel2 = new HotelDetails();
-		hotel2.setHotel_name("Leela Palace");
-		hotel2.setPrice(8000);
-		hotel2.setAvailability(false);
-		hotelList.add(hotel1);
-		hotelList.add(hotel2);
-		return hotelList;
+		List<HotelDetails> hotelList = hotelDetailsRepository.findAll();       
+        return hotelList;
 	}
 	
 	@RequestMapping(value="/reserveHotel",method=RequestMethod.POST,consumes="application/json")
