@@ -1,12 +1,39 @@
 package com.example.hotelReservation.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "reserve_hotel")
 public class ReservationDetails {
+	@Id
+	@GeneratedValue
+	private int hotel_id;
 	private String hotel_name;
 	private String checkin;
+	public int getHotel_id() {
+		return hotel_id;
+	}
+	public void setHotel_id(int hotel_id) {
+		this.hotel_id = hotel_id;
+	}
+	/*
+	 * public int getHotel_id() { return hotel_id; } public void setHotel_id(int
+	 * hotel_id) { this.hotel_id = hotel_id; }
+	 */
 	private String checkout;
-	private List<Guests> guests_list;
+	
+	
+	@OneToMany(mappedBy = "reservationDetails", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+	private List<Guests> guests;
 	
 	/* Setters and getters for the properties */
 	public String getHotel_name() {
@@ -27,11 +54,12 @@ public class ReservationDetails {
 	public void setCheckout(String checkout) {
 		this.checkout = checkout;
 	}
-	public List<Guests> getGuests_list() {
-		return guests_list;
+	public List<Guests> getGuests() {
+		return guests;
 	}
-	public void setGuests_list(List<Guests> guests_list) {
-		this.guests_list = guests_list;
-	}    
+	public void setGuests(List<Guests> guests) {
+		this.guests = guests;
+	}
+	 
 
 }
