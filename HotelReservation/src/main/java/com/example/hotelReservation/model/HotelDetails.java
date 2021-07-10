@@ -10,19 +10,18 @@ import javax.persistence.Table;
 public class HotelDetails {
 
 	@Id
-	@GeneratedValue
 	private int hotel_id;
 	private String hotel_name;
 	private int price;
 	private boolean availability;
 
+	/* Setters and getters for the properties */
 	public int getHotel_id() {
 		return hotel_id;
 	}
 	public void setHotel_id(int hotel_id) {
 		this.hotel_id = hotel_id;
 	}
-	/* Setters and getters for the properties */
 	public String getHotel_name() {
 		return hotel_name;
 	}
